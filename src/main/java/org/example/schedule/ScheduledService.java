@@ -26,6 +26,7 @@ public class ScheduledService {
         PriorityBlockingQueue<Job> jobQueue = new PriorityBlockingQueue<>();
         Thread thread = new Thread(()->{
             while (true) {
+                //while防止被虚假唤醒
                 while (jobQueue.isEmpty()) {
                     LockSupport.park();
                 }

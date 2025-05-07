@@ -43,6 +43,10 @@ public class MyThreadPool {
                 System.out.println(Thread.currentThread().getName()+"结束了");
             }
         }
+
+        void interrupt() {
+            thread.interrupt();
+        }
     }
 
     private int corePoolSize = 4;
@@ -52,6 +56,7 @@ public class MyThreadPool {
     private BlockingQueue<Runnable> taskQueue;
     private List<Worker> workerList;
     private RejectHandler rejectHandler;
+    private volatile boolean isShutdown = false;
 
     public BlockingQueue<Runnable> getTaskQueue() {
         return taskQueue;
@@ -68,6 +73,10 @@ public class MyThreadPool {
     }
 
     public void execute(Runnable task) {
+        if (isShutdown) {
+            throw new IllegalStateException("线程池已关闭");
+        }
+
         if (workerList.size() < corePoolSize) {
             workerList.add(new Worker(true));
         }
@@ -82,6 +91,9 @@ public class MyThreadPool {
         }
     }
 
-
+    public void shutdown() {
+        isShutdown = true;
+        workerList.forEach(Worker::interrupt);
+    }
 
 }
