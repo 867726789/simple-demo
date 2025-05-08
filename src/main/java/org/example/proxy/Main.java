@@ -32,6 +32,33 @@ public class Main {
         }
     }
 
+
+    static class LogAOP implements MyAOP {
+
+        @Override
+        public String before(String methodName) {
+            String context = "System.out.println(\"before\");\n" +
+                    "            myInterface."+methodName+"();\n";
+            return context;
+        }
+
+        @Override
+        public String after(String methodName) {
+            String context = "            myInterface."+methodName+"();\n" +
+                    "            System.out.println(\"after\");";
+            return context;
+        }
+
+        @Override
+        public String around(String methodName) {
+            String context = "System.out.println(\"before\");\n" +
+                    "            myInterface."+methodName+"();\n" +
+                    "            System.out.println(\"after\");";
+            return context;
+        }
+    }
+
+
     static class LogHandler implements MyHandler {
 
         MyInterface myInterface;
@@ -42,18 +69,15 @@ public class Main {
 
         @Override
         public String functionBody(String methodName) {
-            String context = "System.out.println(\"before\");\n" +
-                    "            myInterface."+methodName+"();\n" +
-                    "            System.out.println(\"after\");";
+            String context = new LogAOP().before(methodName);
             return context;
         }
 
         @Override
         public void setProxy(MyInterface proxy) {
             Class<? extends MyInterface> clazz = proxy.getClass();
-            Field field = null;
             try {
-                field = clazz.getDeclaredField("myInterface");
+                Field field = clazz.getDeclaredField("myInterface");
                 field.setAccessible(true);
                 field.set(proxy,myInterface);
             } catch (Exception e) {
@@ -61,5 +85,7 @@ public class Main {
             }
 
         }
+
+
     }
 }
