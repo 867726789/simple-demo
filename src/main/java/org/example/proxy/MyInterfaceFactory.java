@@ -1,5 +1,7 @@
 package org.example.proxy;
 
+import org.example.proxy.utils.Compiler;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
