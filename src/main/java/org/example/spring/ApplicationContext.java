@@ -28,7 +28,7 @@ public class ApplicationContext {
     }
 
     public void initContext(String packageName) throws Exception {
-        scanPackage(packageName).stream().filter(this::scanCreated).forEach(this::wrapper);
+        scanPackage(packageName).stream().filter(this::canCreated).forEach(this::wrapper);
         initBeanPostProcessor();
         beanDefinitionMap.values().forEach(this::createBean);
     }
@@ -96,7 +96,7 @@ public class ApplicationContext {
         }
     }
 
-    protected boolean scanCreated(Class<?> type) {
+    protected boolean canCreated(Class<?> type) {
         return type.isAnnotationPresent(Component.class);
     }
 
