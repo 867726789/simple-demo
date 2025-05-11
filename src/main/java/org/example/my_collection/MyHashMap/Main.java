@@ -1,6 +1,4 @@
-package org.example.MyHashMap;
-
-import java.util.HashMap;
+package org.example.my_collection.MyHashMap;
 
 public class Main {
     public static void main(String[] args) {

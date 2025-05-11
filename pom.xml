@@ -71,6 +71,17 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.56</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>tech.medivh</groupId>
+            <artifactId>shengsheng-classpy</artifactId>
+            <version>1.1.0</version>
+        </dependency>
     </dependencies>
 
 </project>

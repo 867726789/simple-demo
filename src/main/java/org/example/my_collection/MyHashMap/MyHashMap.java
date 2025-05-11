@@ -1,4 +1,4 @@
-package org.example.MyHashMap;
+package org.example.my_collection.MyHashMap;
 
 import java.util.ArrayList;
 import java.util.List;
